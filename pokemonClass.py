@@ -20,12 +20,21 @@ class Pokemon:
             elif stat['stat']['name'] == 'speed':
                 self.speed = stat['base_stat']
 
+        #get the pokemon types
+        self.types = []
+        for i in range (len(data['types'])):
+            type = data['types'][i]
+            self.types.append(type['type']['name'])
+
     def Display_Stats(self):
         print(f"Name: {self.name.capitalize()}")      
         print(f"Hp: {self.mHp}")
         print(f"Attack dmg: {self.attack}")
         print(f"Defense: {self.defense}")
         print(f"Speed stat: {self.speed}")
+        print("Type:", end=" ")
+        for i in self.types:
+            print(i, end = ", ")
 
 
         
