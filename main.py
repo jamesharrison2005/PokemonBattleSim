@@ -34,8 +34,6 @@ def MainMenu():
         pokemon.Display_Stats()
         
     
-            
-    
 MainMenu()
 
 
