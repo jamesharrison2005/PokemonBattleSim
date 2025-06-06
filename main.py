@@ -1,4 +1,5 @@
 import requests
+from pokemonClass import Pokemon
 
 base_url = "https://pokeapi.co/api/v2/"
 
@@ -16,3 +17,6 @@ def Get_Poke_Data(name):
 
 poke_Name = input("Please enter the name of a pokemon: ")
 poke_Data = Get_Poke_Data(poke_Name)
+
+p1 = Pokemon(poke_Data)
+p1.Display_Stats()
