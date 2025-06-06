@@ -16,4 +16,3 @@ def Get_Poke_Data(name):
 
 poke_Name = input("Please enter the name of a pokemon: ").lower()
 poke_Data = Get_Poke_Data(poke_Name)
-print(poke_Data)
