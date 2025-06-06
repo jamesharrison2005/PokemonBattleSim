@@ -3,7 +3,7 @@ import requests
 base_url = "https://pokeapi.co/api/v2/"
 
 def Get_Poke_Data(name):
-    url = f"{base_url}pokemon/{name}"
+    url = f"{base_url}pokemon/{name.lower()}"
     response = requests.get(url)
 
     if response.status_code == 200:
@@ -14,5 +14,5 @@ def Get_Poke_Data(name):
     
     
 
-poke_Name = input("Please enter the name of a pokemon: ").lower()
+poke_Name = input("Please enter the name of a pokemon: ")
 poke_Data = Get_Poke_Data(poke_Name)
