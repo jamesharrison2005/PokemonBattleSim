@@ -1,0 +1,1 @@
+very simple and basic pokemon battle simulator to help learn python using PokeAPI
