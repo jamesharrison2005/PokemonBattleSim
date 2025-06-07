@@ -5,15 +5,19 @@ from pokemonClass import Pokemon
 base_url = "https://pokeapi.co/api/v2/"
 
 def Get_Poke_Data(name):
-    url = f"{base_url}pokemon/{name.lower()}"
-    response = requests.get(url)
+    n = name
+    while True:
+        url = f"{base_url}pokemon/{n.lower()}"
+        response = requests.get(url)
 
-    if response.status_code == 200:
-        poke_Info = response.json()
-        return poke_Info
-    else:
-        print(f"There was a problem retrieving data! Error Code: {response.status_code}")
-    
+        if response.status_code == 200:
+            poke_Info = response.json()
+            break
+            
+        else:
+            print(f"There was a problem retrieving data! Error Code: {response.status_code}")
+            n = input("Please enter the pokemons name again: ")
+    return poke_Info
     
 def MainMenu():
 
