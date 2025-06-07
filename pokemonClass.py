@@ -6,7 +6,7 @@ class Pokemon:
 
         self.name = data["name"]
         self.potions = 2
-        info + 2
+        
         stats = data['stats']
         #loop through stats dictionary until desired stat is found
         for stat in stats:
