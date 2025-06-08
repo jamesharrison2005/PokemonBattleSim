@@ -1,24 +1,44 @@
 import requests
+import os
 from pokemonClass import Pokemon
 
 base_url = "https://pokeapi.co/api/v2/"
 
 def Get_Poke_Data(name):
-    url = f"{base_url}pokemon/{name.lower()}"
-    response = requests.get(url)
+    n = name
+    while True:
+        url = f"{base_url}pokemon/{n.lower()}"
+        response = requests.get(url)
 
-    if response.status_code == 200:
-        poke_Info = response.json()
-        return poke_Info
-    else:
-        print(f"There was a problem retrieving data! Error Code: {response.status_code}")
-    
+        if response.status_code == 200:
+            poke_Info = response.json()
+            break
+            
+        else:
+            print(f"There was a problem retrieving data! Error Code: {response.status_code}")
+            n = input("Please enter the pokemons name again: ")
+    return poke_Info
     
 def MainMenu():
-    
-    p1 = []
 
-    print("Welcome to the Pokemon Battle Sim!")
+    print("\n-----Welcome to the Pokemon Battle Sim!-----\n")
+    print("Player 1 please select your pokemon:")
+    p1 = selectPokemon()
+    os.system('cls')
+    print("Player 2 please select your pokemon:")
+    p2 = selectPokemon()
+         
+        
+    for pokemon in p1:
+        print("\n")
+        pokemon.Display_Stats()
+    print("\n\n-------Player 2-------")
+    for pokemon in p2:
+        print("\n")
+        pokemon.Display_Stats()
+        
+def selectPokemon():
+    player = []
     ctr = 1
     for i in range(2):
         print(f"Please enter the name of Pokemon {ctr} you want to use: ")
@@ -27,14 +47,12 @@ def MainMenu():
         poke_Data = Get_Poke_Data(name)
         if poke_Data:
             pokemon = Pokemon(poke_Data)
-            p1.append(pokemon)  # Correct: Append to the p1 list        
-        
-    for pokemon in p1:
-        print("\n")
-        pokemon.Display_Stats()
-        
-    
+            player.append(pokemon)  # Correct: Append to the player list   
+
+    return player        
+
 MainMenu()
+
 
 
 
