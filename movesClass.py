@@ -8,4 +8,12 @@ class Move:
         response = requests.get(url)
 
         if response.status_code == 200:
-            pass
+            data = response.json()
+            self.type = data["type"]["name"]
+            self.power = data["power"] or 0
+            self.accuracy = data["accuracy"] or 100
+            self.damage_class = data["damage_class"]["name"]
+        else:
+            print(f"There was a problem retrieving data! Error Code: {response.status_code}")
+    
+    

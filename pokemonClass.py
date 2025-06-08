@@ -1,3 +1,5 @@
+from movesClass import Move
+
 class Pokemon:
 
     def __init__(self, data):
@@ -26,6 +28,18 @@ class Pokemon:
             type = data['types'][i]
             self.types.append(type['type']['name'])
 
+        self.moves = self.Get_Moves(data)
+
+    def Get_Moves(self, data):
+        moves_list = []
+        for i in data["moves"]:
+            for j in i["version_group_details"]:
+                if j["move_learn_method"]["name"] == "level-up":
+                    moves_list.append(i["move"]["name"])
+                    break
+        return moves_list
+
+
     def Display_Stats(self):
         print(f"Name: {self.name.capitalize()}")      
         print(f"Hp: {self.mHp}")
@@ -35,6 +49,11 @@ class Pokemon:
         print("Type:", end=" ")
         for i in self.types:
             print(i, end = ", ")
+
+        print("\nMoves:")
+        for move in self.moves:
+            print(f"  - {move}")
+
 
 
         
