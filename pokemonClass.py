@@ -1,3 +1,4 @@
+from random import choices
 from movesClass import Move
 
 class Pokemon:
@@ -32,12 +33,27 @@ class Pokemon:
 
     def Get_Moves(self, data):
         moves_list = []
+        
         for i in data["moves"]:
             for j in i["version_group_details"]:
                 if j["move_learn_method"]["name"] == "level-up":
                     moves_list.append(i["move"]["name"])
                     break
-        return moves_list
+
+        print("\nMoves:")
+        for i, move in enumerate(moves_list, start=1):
+            print(f" {i} - {move}")
+
+        selection = input("Please select the number of the moves you would like to use e.g 2,6,9,11")
+        choices = [int(num.strip()) for num in selection.split(',')]
+        if len(choices) != 4 or any(i < 1 or i > len(moves_list) for i in choices):
+            print("Invalid selection. Please enter 3 valid numbers between 1 and", len(moves_list))
+            return[]
+        else:
+            poke_moves = [moves_list[i - 1] for i in choices]
+            return poke_moves    
+
+        
 
 
     def Display_Stats(self):

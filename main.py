@@ -24,19 +24,20 @@ def MainMenu():
     print("\n-----Welcome to the Pokemon Battle Sim!-----\n")
     print("Player 1 please select your pokemon:")
     p1 = selectPokemon()
-    os.system('cls')
     print("Player 2 please select your pokemon:")
     p2 = selectPokemon()
-         
-        
+    os.system('cls')
+
+    print("\n\n-------Player 1-------")
     for pokemon in p1:
         print("\n")
         pokemon.Display_Stats()
+    
     print("\n\n-------Player 2-------")
     for pokemon in p2:
         print("\n")
         pokemon.Display_Stats()
-        
+
 def selectPokemon():
     player = []
     ctr = 1
