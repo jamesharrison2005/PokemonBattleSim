@@ -51,8 +51,8 @@ class Pokemon:
             print(i, end = ", ")
 
         print("\nMoves:")
-        for move in self.moves:
-            print(f"  - {move}")
+        for i, move in enumerate(self.moves, start=1):
+            print(f" {i} - {move}")
 
 
 
