@@ -48,7 +48,7 @@ def selectPokemon():
         poke_Data = Get_Poke_Data(name)
         if poke_Data:
             pokemon = Pokemon(poke_Data)
-            player.append(pokemon)  # Correct: Append to the player list   
+            player.append(pokemon) 
 
     return player        
 
