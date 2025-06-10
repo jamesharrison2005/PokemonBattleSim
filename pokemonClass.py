@@ -50,7 +50,6 @@ class Pokemon:
                 choices = [int(num.strip()) for num in selection.split(',')]
                 if len(choices) != 4 or any(i < 1 or i > len(moves_list) for i in choices):
                     print("Invalid selection. Please enter 3 valid numbers between 1 and", len(moves_list))
-                    return[]
                 else:
                     poke_moves = [moves_list[i - 1] for i in choices]
                     break
