@@ -31,6 +31,9 @@ class Pokemon:
 
         self.moves = self.Get_Moves(data)
 
+
+    
+
     def Get_Moves(self, data):
         moves_list = []
         
@@ -48,19 +51,26 @@ class Pokemon:
             selection = input("Please select the number of the moves you would like to use e.g 2,6,9,11: ")
             try:
                 choices = [int(num.strip()) for num in selection.split(',')]
-                if len(choices) != 4 or any(i < 1 or i > len(moves_list) for i in choices):
+                if len(choices) != 4 or any(i < 1 or i > len(moves_list) for i in choices): 
                     print("Invalid selection. Please enter 3 valid numbers between 1 and", len(moves_list))
                 else:
                     poke_moves = [moves_list[i - 1] for i in choices]
-                    break
+                    dupe = self.Is_Duplicate(poke_moves)
+                    if dupe:
+                        print("You entered a duplicate please enter 4 unique moves")
+                    else:
+                        break
             except ValueError:
                 print("Thats not an integer please enter again")
             
         return poke_moves    
                 
 
-        
-
+    def Is_Duplicate(self, moves_list):
+        if len(moves_list) != len(set(moves_list)):
+            return True
+        else:
+            return False  
 
     def Display_Stats(self):
         print(f"Name: {self.name.capitalize()}")      
