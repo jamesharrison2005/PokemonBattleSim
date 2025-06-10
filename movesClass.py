@@ -7,13 +7,14 @@ class Move:
         url = f"https://pokeapi.co/api/v2/move/{self.name}"
         response = requests.get(url)
 
+        #reads the json file and stores all the important info in variables such as power, accuracy and so on
         if response.status_code == 200:
             data = response.json()
             self.type = data["type"]["name"]
             self.power = data["power"] or 0
             self.accuracy = data["accuracy"] or 100
             self.damage_class = data["damage_class"]["name"]
-        else:
+        else: # returns status code if there was an error returning data
             print(f"There was a problem retrieving data! Error Code: {response.status_code}")
     
     
