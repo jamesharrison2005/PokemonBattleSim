@@ -1,4 +1,5 @@
 import requests
+import random
 
 class Move:
     
@@ -17,4 +18,10 @@ class Move:
         else: # returns status code if there was an error returning data
             print(f"There was a problem retrieving data! Error Code: {response.status_code}")
     
-    
+    def MoveHits(self):
+        num = random.randint(1,99)
+        if self.accuracy >= num:
+            return True
+        else:
+            return False
+            
