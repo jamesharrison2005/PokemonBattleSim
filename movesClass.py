@@ -18,6 +18,7 @@ class Move:
         else: # returns status code if there was an error returning data
             print(f"There was a problem retrieving data! Error Code: {response.status_code}")
     
+    #generates a random number if the accuracy is greater or equal to the move will land
     def MoveHits(self):
         num = random.randint(1,99)
         if self.accuracy >= num:
