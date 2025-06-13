@@ -91,5 +91,10 @@ class Pokemon:
             print(f" {i} - {move}")
 
 
+    def Take_Damage(self, damage):
+        self.cHp -= damage
+        if self.chp < 0:
+            self.chp = 0
 
-        
+    def Is_Fainted(self):
+        return self.chp <= 0
