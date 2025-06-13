@@ -69,14 +69,17 @@ def BattleSimulation(p1_team, p2_team):
     else:
         turn = random.randint(1,2)
 
+    # battle runs while until one of the pokemon have fainted
     while not p1_pokemon.IsFainted() and not p2_pokemon.IsFainted():
+        #decides based on which pokemon was faster
         if turn == 1:
             attacker = p1_pokemon
             defender = p2_pokemon
         else:
             attacker = p2_pokemon
             defender = p1_pokemon
-            
+        
+
         
         
 
