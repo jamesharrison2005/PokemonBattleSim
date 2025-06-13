@@ -52,6 +52,13 @@ def selectPokemon():
 
     return player        
 
+def BattleSimulation(p1_team, p2_team):
+    p1_index = 0
+    p2_index = 0
+
+    p1_pokemon = p1_team[p1_index]
+    p2_pokemon = p2_team[p2_index]
+
 MainMenu()
 
 
