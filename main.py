@@ -1,5 +1,7 @@
 import requests
 import os
+import random
+from colorama import init, Fore, Back, Style
 from pokemonClass import Pokemon
 
 base_url = "https://pokeapi.co/api/v2/"
@@ -58,6 +60,14 @@ def BattleSimulation(p1_team, p2_team):
 
     p1_pokemon = p1_team[p1_index]
     p2_pokemon = p2_team[p2_index]
+
+    #Establish who goes first
+    if p1_pokemon.speed > p2_index.speed:
+        turn = 1
+    elif p2_pokemon.speed > p1_pokemon.speed:
+        turn = 2
+    else:
+        turn = random.randint(1,2)
 
 MainMenu()
 
