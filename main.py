@@ -93,7 +93,11 @@ def BattleSimulation(p1_team, p2_team):
         choice = int(input("What will you do? "))
         match choice:
             case 1:
-                return
+                print("\nMoves:")
+                for i, move in enumerate(attacker.moves, start=1):
+                    print(f" {i} - {move}")
+                move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
+
             case 2:
                 return
             case 3:
