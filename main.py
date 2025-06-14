@@ -83,11 +83,27 @@ def BattleSimulation(p1_team, p2_team):
             attacker = p2_pokemon
             defender = p1_pokemon
         
+        
         print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHp}) ")
-        print("What will you do?")
+        print("Choose an Action:")
         print("1. Use Move")
         print(f"2. Use Potion - Potions left ({attacker.potions})")
         print("3. Switch Pokemon")
+
+        choice = int(input("What will you do? "))
+        match choice:
+            case 1:
+                return
+            case 2:
+                return
+            case 3:
+                return
+            case _:
+                print("please enter a valid input")
+
+            
+
+
 
         
         
