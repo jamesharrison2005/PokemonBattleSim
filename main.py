@@ -36,7 +36,7 @@ def MainMenu():
         pokemon.Display_Stats()
     
     print("\n\n-------Player 2-------")
-    for pokemon in p2:
+    for pokemon in p2: 
         print("\n")
         pokemon.Display_Stats()
     
@@ -66,7 +66,7 @@ def BattleSimulation(p1_team, p2_team):
     p2_pokemon = p2_team[p2_index]
 
     #Establish who goes first
-    if p1_pokemon.speed > p2_index.speed:
+    if p1_pokemon.speed > p2_pokemon.speed:
         turn = 1
     elif p2_pokemon.speed > p1_pokemon.speed:
         turn = 2
@@ -74,7 +74,7 @@ def BattleSimulation(p1_team, p2_team):
         turn = random.randint(1,2)
 
     # battle runs while until one of the pokemon have fainted
-    while not p1_pokemon.IsFainted() and not p2_pokemon.IsFainted():
+    while not p1_pokemon.Is_Fainted() and not p2_pokemon.Is_Fainted():
         #decides based on which pokemon was faster
         if turn == 1:
             attacker = p1_pokemon
@@ -83,7 +83,7 @@ def BattleSimulation(p1_team, p2_team):
             attacker = p2_pokemon
             defender = p1_pokemon
         
-        print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHP}) ")
+        print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHp}) ")
         print("What will you do?")
         print("1. Use Move")
         print(f"2. Use Potion - Potions left ({attacker.potions})")

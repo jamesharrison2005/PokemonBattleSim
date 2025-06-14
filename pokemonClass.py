@@ -93,8 +93,8 @@ class Pokemon:
 
     def Take_Damage(self, damage):
         self.cHp -= damage
-        if self.chp < 0:
-            self.chp = 0
+        if self.cHp < 0:
+            self.cHp = 0
 
     def Is_Fainted(self):
-        return self.chp <= 0
+        return self.cHp <= 0
