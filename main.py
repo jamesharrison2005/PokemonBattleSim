@@ -39,6 +39,9 @@ def MainMenu():
     for pokemon in p2:
         print("\n")
         pokemon.Display_Stats()
+    
+    os.system("PAUSE")
+    BattleSimulation(p1, p2)
 
 def selectPokemon():
     player = []
@@ -55,6 +58,7 @@ def selectPokemon():
     return player        
 
 def BattleSimulation(p1_team, p2_team):
+    os.system('cls')
     p1_index = 0
     p2_index = 0
 
@@ -79,6 +83,11 @@ def BattleSimulation(p1_team, p2_team):
             attacker = p2_pokemon
             defender = p1_pokemon
         
+        print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHP}) ")
+        print("What will you do?")
+        print("1. Use Move")
+        print(f"2. Use Potion - Potions left ({attacker.potions})")
+        print("3. Switch Pokemon")
 
         
         
