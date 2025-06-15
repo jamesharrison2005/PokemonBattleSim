@@ -128,6 +128,10 @@ def BattleSimulation(p1_team, p2_team):
                 return
             case _:
                 print("please enter a valid input")
+        print(f"{defender.name.capitalize()} has {defender.cHp} HP remaining")
+        if defender.Is_Fainted():
+            print(Fore.RED + f"{defender.name.capitalize()} has fainted!")
+            print(Style.RESET_ALL) 
         turn = 2 if turn == 1 else 1
 
             
