@@ -3,6 +3,7 @@ import os
 import random
 from colorama import init, Fore, Back, Style
 from pokemonClass import Pokemon
+from movesClass import Move
 
 base_url = "https://pokeapi.co/api/v2/"
 
@@ -97,6 +98,13 @@ def BattleSimulation(p1_team, p2_team):
                 for i, move in enumerate(attacker.moves, start=1):
                     print(f" {i} - {move}")
                 move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
+                if move_choice > 0 and move_choice < 4:
+                    selected_move = Move(attacker.moves[move_choice])
+                    if selected_move.MoveHits:
+                        #simple damage calculation
+                        damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2)
+                        print(f"{attacker.name.capitalize()} has used the move {selected_move.name}!")
+                        print(f"It has done {damage} damage!")
 
             case 2:
                 return
