@@ -97,7 +97,7 @@ def BattleSimulation(p1_team, p2_team):
                 print("\nMoves:")
                 for i, move in enumerate(attacker.moves, start=1):
                     print(f" {i} - {move}")
-                move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
+                move_choice = int(input("Please select the number of move you'd like to use: "))
                 if move_choice > 0 and move_choice < 4:
                     selected_move = Move(attacker.moves[move_choice])
                     if selected_move.MoveHits:
@@ -108,6 +108,7 @@ def BattleSimulation(p1_team, p2_team):
                         defender.Take_Damage(damage)
                     else:
                         print(Fore.RED + "The move missed!")
+                        print(Style.RESET_ALL) 
                 else:
                     print("incorrect value entered turn skipped")
             case 2:
@@ -120,12 +121,14 @@ def BattleSimulation(p1_team, p2_team):
                 else:
                     attacker.cHp + heal
                     print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {heal} points")
+                print(Style.RESET_ALL) 
                 print(f"You have {attacker.potions} potions left")
                 
             case 3:
                 return
             case _:
                 print("please enter a valid input")
+        turn = 2 if turn == 1 else 1
 
             
 
