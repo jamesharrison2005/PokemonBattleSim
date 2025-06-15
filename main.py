@@ -105,7 +105,11 @@ def BattleSimulation(p1_team, p2_team):
                         damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2)
                         print(f"{attacker.name.capitalize()} has used the move {selected_move.name}!")
                         print(f"It has done {damage} damage!")
-
+                        defender.TakeDamage(damage)
+                    else:
+                        print(Fore.RED"The move missed!")
+                else:
+                    print("incorrect value entered turn skipped")
             case 2:
                 return
             case 3:
