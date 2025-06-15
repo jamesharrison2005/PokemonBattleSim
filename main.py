@@ -97,7 +97,7 @@ def BattleSimulation(p1_team, p2_team):
                 print("\nMoves:")
                 for i, move in enumerate(attacker.moves, start=1):
                     print(f" {i} - {move}")
-                move_choice = int(input("Please select the number of move you'd like to use: "))
+                move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
                 if move_choice > 0 and move_choice < 4:
                     selected_move = Move(attacker.moves[move_choice])
                     if selected_move.MoveHits:
