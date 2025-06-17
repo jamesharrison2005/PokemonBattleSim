@@ -83,8 +83,7 @@ def BattleSimulation(p1_team, p2_team):
         else:
             attacker = p2_pokemon
             defender = p1_pokemon
-        
-        
+                
         print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHp}) ")
         print("Choose an Action:")
         print("1. Use Move")
@@ -113,17 +112,16 @@ def BattleSimulation(p1_team, p2_team):
                     print("incorrect value entered turn skipped")
             case 2:
                 heal = 30
-                attacker.potions - 1
+                attacker.potions -= 1
                 if attacker.cHp + heal > attacker.mHp:
                     diff = attacker.mHp - attacker.cHp
-                    attacker.cHp + diff
+                    attacker.cHp += diff
                     print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {diff} points")
                 else:
-                    attacker.cHp + heal
+                    attacker.cHp += heal
                     print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {heal} points")
                 print(Style.RESET_ALL) 
                 print(f"You have {attacker.potions} potions left")
-                
             case 3:
                 return
             case _:
@@ -134,12 +132,6 @@ def BattleSimulation(p1_team, p2_team):
             print(Style.RESET_ALL) 
         turn = 2 if turn == 1 else 1
 
-            
-
-
-
-        
-        
 
 MainMenu()
 
