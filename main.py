@@ -97,7 +97,8 @@ def BattleSimulation(p1_team, p2_team):
                 for i, move in enumerate(attacker.moves, start=1):
                     print(f" {i} - {move}")
                 move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
-                if move_choice > 0 and move_choice < 4:
+                print(move_choice)
+                if move_choice >= 0 and move_choice < 4:
                     selected_move = Move(attacker.moves[move_choice])
                     if selected_move.MoveHits:
                         #simple damage calculation
@@ -123,28 +124,10 @@ def BattleSimulation(p1_team, p2_team):
                 print(Style.RESET_ALL) 
                 print(f"You have {attacker.potions} potions left")
             case 3:
-                print(f"Which pokemon would you like to switch to:")
-                #turnary operation making sure the correct team is printed
-                team = p1_team if turn == 1 else p2_team
-                current_index = p1_index if turn == 1 else p2_index
-                print(f"Which pokemon would you like to switch to:")
-                for  i, pokemon in enumerate(team, start=1):
-                    print(f"{i} - {pokemon.name.capitalize()}")
-                new_index = int(print("Please select the pokemon you wish to switch to "))
-                if new_index > 0 and new_index <= len(team):
-                    new_index -= 1
-                    if team[new_index].Is_Fainted():
-                        print(Fore.RED + f"{team[new_index].name.capitalize()} has fainted! Please select another pokemon")
-                        print(Style.RESET_ALL) 
-                    else:
-                        if turn == 1:
-                            p1_index = new_index
-                            p1_pokemon = team[p1_index]
-                        else:
-                            p2_index = new_index
-                            p2_pokemon = team[p2_index]
-                        print(f"{attacker.name.capitalize()} has switched to {team[new_index].name.capitalize()}")
-                
+                if turn == 1:
+                    p1_index, p1_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index)
+                else:
+                    p2_index, p2_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index) 
             case _:
                 print("please enter a valid input")
         print(f"{defender.name.capitalize()} has {defender.cHp} HP remaining")
@@ -153,6 +136,38 @@ def BattleSimulation(p1_team, p2_team):
             print(Style.RESET_ALL) 
         turn = 2 if turn == 1 else 1
 
+def Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index):
+    if turn == 1:
+        team = p1_team
+        current_index = p1_index
+    else:
+        team = p2_team
+        current_index = p2_index    
+
+    print(f"Which Pokémon would you like to switch to:")
+    for i, pokemon in enumerate(team, start=1):
+        print(f"{i} - {pokemon.name.capitalize()} (HP: {pokemon.cHp}/{pokemon.mHp})")
+
+    try:
+        new_index = int(input("Please select the Pokémon you wish to switch to: ")) - 1
+
+        if new_index == current_index:
+            print(Fore.YELLOW + "You're already using this Pokémon.")
+            return current_index, team[current_index]
+
+        if 0 <= new_index < len(team):
+            if team[new_index].Is_Fainted():
+                print(Fore.RED + f"{team[new_index].name.capitalize()} has fainted! Please select another Pokémon")
+                return current_index, team[current_index]
+            else:
+                print(f"{team[current_index].name.capitalize()} has switched to {team[new_index].name.capitalize()}")
+                return new_index, team[new_index]
+        else:
+            print(Fore.RED + "Invalid selection.")
+            return current_index, team[current_index]
+    except ValueError:
+        print(Fore.RED + "Invalid input. Please enter a number.")
+        return current_index, team[current_index]
 
 MainMenu()
 
