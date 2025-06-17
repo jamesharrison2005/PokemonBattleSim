@@ -129,7 +129,7 @@ def BattleSimulation(p1_team, p2_team):
                 current_index = p1_index if turn == 1 else p2_index
                 print(f"Which pokemon would you like to switch to:")
                 for  i, pokemon in enumerate(team, start=1):
-                    print(f"{i} - {pokemon.name.capittalize()}")
+                    print(f"{i} - {pokemon.name.capitalize()}")
                 
             case _:
                 print("please enter a valid input")
