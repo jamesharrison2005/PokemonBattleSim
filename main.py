@@ -123,7 +123,14 @@ def BattleSimulation(p1_team, p2_team):
                 print(Style.RESET_ALL) 
                 print(f"You have {attacker.potions} potions left")
             case 3:
-                return
+                print(f"Which pokemon would you like to switch to:")
+                #turnary operation making sure the correct team is printed
+                team = p1_team if turn == 1 else p2_team
+                current_index = p1_index if turn == 1 else p2_index
+                print(f"Which pokemon would you like to switch to:")
+                for  i, pokemon in enumerate(team, start=1):
+                    print(f"{i} - {pokemon.name.capittalize()}")
+                
             case _:
                 print("please enter a valid input")
         print(f"{defender.name.capitalize()} has {defender.cHp} HP remaining")
