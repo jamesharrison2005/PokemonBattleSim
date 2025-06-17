@@ -75,7 +75,7 @@ def BattleSimulation(p1_team, p2_team):
         turn = random.randint(1,2)
 
     # battle runs while until one of the pokemon have fainted
-    while not p1_pokemon.Is_Fainted() and not p2_pokemon.Is_Fainted():
+    while not AllFainted(p1_team) and not AllFainted(p2_team):
         #decides based on which pokemon was faster
         if turn == 1:
             attacker = p1_pokemon
@@ -97,7 +97,6 @@ def BattleSimulation(p1_team, p2_team):
                 for i, move in enumerate(attacker.moves, start=1):
                     print(f" {i} - {move}")
                 move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
-                print(move_choice)
                 if move_choice >= 0 and move_choice < 4:
                     selected_move = Move(attacker.moves[move_choice])
                     if selected_move.MoveHits:
@@ -130,10 +129,27 @@ def BattleSimulation(p1_team, p2_team):
                     p2_index, p2_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index) 
             case _:
                 print("please enter a valid input")
+
+        #Checking if the defender / team has fainted
+        if AllFainted(p1_team):
+            print(Fore.RED + "Player 2 wins! All of Player 1's Pokémon have fainted!")
+            print(Style.RESET_ALL)
+            return 
+        elif AllFainted(p2_team):
+            print(Fore.GREEN + "Player 1 wins! All of Player 2's Pokémon have fainted!")
+            print(Style.RESET_ALL)
+
         print(f"{defender.name.capitalize()} has {defender.cHp} HP remaining")
+
+        
         if defender.Is_Fainted():
             print(Fore.RED + f"{defender.name.capitalize()} has fainted!")
-            print(Style.RESET_ALL) 
+            print(Style.RESET_ALL)
+            if turn == 1:
+                p2_index, p2_pokemon = Switch_pokemon(2, p1_team, p2_team, p1_index, p2_index)
+            else:
+                p1_index, p1_pokemon = Switch_pokemon(1, p1_team, p2_team, p1_index, p2_index)
+        
         turn = 2 if turn == 1 else 1
 
 def Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index):
@@ -153,6 +169,7 @@ def Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index):
 
         if new_index == current_index:
             print(Fore.YELLOW + "You're already using this Pokémon.")
+            print(Style.RESET_ALL)
             return current_index, team[current_index]
 
         if 0 <= new_index < len(team):
@@ -164,11 +181,15 @@ def Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index):
                 return new_index, team[new_index]
         else:
             print(Fore.RED + "Invalid selection.")
+            print(Style.RESET_ALL)
             return current_index, team[current_index]
     except ValueError:
         print(Fore.RED + "Invalid input. Please enter a number.")
+        print(Style.RESET_ALL)
         return current_index, team[current_index]
 
+def AllFainted(team):
+    return all(pokemon.Is_Fainted() for pokemon in team)
 MainMenu()
 
 
