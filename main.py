@@ -77,58 +77,71 @@ def BattleSimulation(p1_team, p2_team):
     # battle runs while until one of the pokemon have fainted
     while not AllFainted(p1_team) and not AllFainted(p2_team):
         #decides based on which pokemon was faster
+        errorValue = False
         if turn == 1:
             attacker = p1_pokemon
             defender = p2_pokemon
         else:
             attacker = p2_pokemon
             defender = p1_pokemon
-                
-        print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHp}) ")
-        print("Choose an Action:")
-        print("1. Use Move")
-        print(f"2. Use Potion - Potions left ({attacker.potions})")
-        print("3. Switch Pokemon")
 
-        choice = int(input("What will you do?\nInput Choice: "))
-        match choice:
-            case 1:
-                print("\nMoves:")
-                for i, move in enumerate(attacker.moves, start=1):
-                    print(f" {i} - {move}")
-                move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
-                if move_choice >= 0 and move_choice < 4:
-                    selected_move = Move(attacker.moves[move_choice])
-                    if selected_move.MoveHits:
-                        #simple damage calculation
-                        damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2)
-                        print(f"{attacker.name.capitalize()} has used the move {selected_move.name}!")
-                        print(f"It has done {damage} damage! to {defender.name.capitalize()}")
-                        defender.Take_Damage(damage)
-                    else:
-                        print(Fore.RED + "The move missed!")
+        while errorValue == False:     
+            print(f"\n{attacker.name.capitalize()}'s Turn (HP: {attacker.cHp}) ")
+            print("Choose an Action:")
+            print("1. Use Move")
+            print(f"2. Use Potion - Potions left ({attacker.potions})")
+            print("3. Switch Pokemon")
+            try:
+                choice = int(input("What will you do?\nInput Choice: "))
+                match choice:
+                    case 1:
+                        print("\nMoves:")
+                        for i, move in enumerate(attacker.moves, start=1):
+                            print(f" {i} - {move}")
+                        move_choice = int(input("Please select the number of move you'd like to use: ")) - 1
+                        if move_choice >= 0 and move_choice < 4:
+                            selected_move = Move(attacker.moves[move_choice])
+                            if selected_move.MoveHits:
+                                #simple damage calculation
+                                damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2)
+                                print(f"{attacker.name.capitalize()} has used the move {selected_move.name}!")
+                                print(f"It has done {damage} damage! to {defender.name.capitalize()}")
+                                defender.Take_Damage(damage)
+                                
+                            else:
+                                print(Fore.RED + "The move missed!")
+                                print(Style.RESET_ALL) 
+                            errorValue = True
+                        else:
+                            print(Fore.RED + "incorrect value entered, please try again")
+                            os.system("PAUSE")
+                            os.system('cls')  
+                    case 2:
+                        heal = 30
+                        attacker.potions -= 1
+                        if attacker.cHp + heal > attacker.mHp:
+                            diff = attacker.mHp - attacker.cHp
+                            attacker.cHp += diff
+                            print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {diff} points")
+                        else:
+                            attacker.cHp += heal
+                            print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {heal} points")
                         print(Style.RESET_ALL) 
-                else:
-                    print("incorrect value entered turn skipped")
-            case 2:
-                heal = 30
-                attacker.potions -= 1
-                if attacker.cHp + heal > attacker.mHp:
-                    diff = attacker.mHp - attacker.cHp
-                    attacker.cHp += diff
-                    print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {diff} points")
-                else:
-                    attacker.cHp += heal
-                    print(Fore.GREEN + f"{attacker.name.capitalize()} has been healed by {heal} points")
-                print(Style.RESET_ALL) 
-                print(f"You have {attacker.potions} potions left")
-            case 3:
-                if turn == 1:
-                    p1_index, p1_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index)
-                else:
-                    p2_index, p2_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index) 
-            case _:
-                print("please enter a valid input")
+                        print(f"You have {attacker.potions} potions left")
+                        errorValue = True
+                    case 3:
+                        if turn == 1:
+                            p1_index, p1_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index)
+                        else:
+                            p2_index, p2_pokemon = Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index) 
+                        errorValue = True
+                    case _:
+                        print("please enter a valid input")
+            except ValueError:
+                print(Fore.RED + "Invalid input. Please enter a number.")
+                print(Style.RESET_ALL)
+                os.system("PAUSE")
+                os.system('cls')  
 
         #Checking if the defender / team has fainted
         if AllFainted(p1_team):
@@ -186,6 +199,8 @@ def Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index):
     except ValueError:
         print(Fore.RED + "Invalid input. Please enter a number.")
         print(Style.RESET_ALL)
+        os.system("PAUSE")
+        os.system('cls')  
         return current_index, team[current_index]
 
 def AllFainted(team):
