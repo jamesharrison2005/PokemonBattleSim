@@ -90,7 +90,7 @@ def BattleSimulation(p1_team, p2_team):
         print(f"2. Use Potion - Potions left ({attacker.potions})")
         print("3. Switch Pokemon")
 
-        choice = int(input("What will you do? "))
+        choice = int(input("What will you do?\nInput Choice: "))
         match choice:
             case 1:
                 print("\nMoves:")
@@ -130,6 +130,20 @@ def BattleSimulation(p1_team, p2_team):
                 print(f"Which pokemon would you like to switch to:")
                 for  i, pokemon in enumerate(team, start=1):
                     print(f"{i} - {pokemon.name.capitalize()}")
+                new_index = int(print("Please select the pokemon you wish to switch to "))
+                if new_index > 0 and new_index <= len(team):
+                    new_index -= 1
+                    if team[new_index].Is_Fainted():
+                        print(Fore.RED + f"{team[new_index].name.capitalize()} has fainted! Please select another pokemon")
+                        print(Style.RESET_ALL) 
+                    else:
+                        if turn == 1:
+                            p1_index = new_index
+                            p1_pokemon = team[p1_index]
+                        else:
+                            p2_index = new_index
+                            p2_pokemon = team[p2_index]
+                        print(f"{attacker.name.capitalize()} has switched to {team[new_index].name.capitalize()}")
                 
             case _:
                 print("please enter a valid input")
