@@ -105,7 +105,7 @@ def BattleSimulation(p1_team, p2_team):
                             if selected_move.MoveHits:
                                 #simple damage calculation
                                 multiplier = selected_move.Get_Type_Multiplier(defender.types)
-                                damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2)
+                                damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2 * multiplier) 
                                 print(f"{attacker.name.capitalize()} has used the move {selected_move.name}!")
                                 if multiplier == 0:
                                     print(Fore.RED + f"It has no effect on {defender.name.capitalize()}!")
@@ -200,6 +200,7 @@ def Switch_pokemon(turn, p1_team, p2_team, p1_index, p2_index):
         if 0 <= new_index < len(team):
             if team[new_index].Is_Fainted():
                 print(Fore.RED + f"{team[new_index].name.capitalize()} has fainted! Please select another Pokémon")
+                print(Style.RESET_ALL)
                 return current_index, team[current_index]
             else:
                 print(f"{team[current_index].name.capitalize()} has switched to {team[new_index].name.capitalize()}")
