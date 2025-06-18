@@ -25,4 +25,24 @@ class Move:
             return True
         else:
             return False
+
+    def Get_Type_Multiplier(self, defender_type):
+        url = f"https://pokeapi.co/api/v2/type/{self.type}"
+        response = requests.get(url)
+        multiplier = 1.0
+
+        if response.status_code == 200:
+            data = response.json()
+            double = [t['name'] for t in data['damage_relations']['double_damage_to']]
+            half = [t['name'] for t in data['damage_relations']['half_damage_to']]
+            zero = [t['name'] for t in data['damage_relations']['no_damage_to']]
+
+            for t in defender_type:
+                if t in double:
+                    multiplier *= 2.0
+                elif t in half:
+                    multiplier *= 0.5
+                elif t in zero:
+                    multiplier *= 0.0
             
+        return multiplier
