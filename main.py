@@ -1,3 +1,4 @@
+from operator import mul
 import requests
 import os
 import random
@@ -47,7 +48,7 @@ def MainMenu():
 def selectPokemon():
     player = []
     ctr = 1
-    for i in range(2):
+    for i in range(5):
         print(f"Please enter the name of Pokemon {ctr} you want to use: ")
         ctr += 1
         name = input()
@@ -103,8 +104,18 @@ def BattleSimulation(p1_team, p2_team):
                             selected_move = Move(attacker.moves[move_choice])
                             if selected_move.MoveHits:
                                 #simple damage calculation
+                                multiplier = selected_move.Get_Type_Multiplier(defender.types)
                                 damage = int(((attacker.attack / defender.defense) * selected_move.power) / 2)
                                 print(f"{attacker.name.capitalize()} has used the move {selected_move.name}!")
+                                if multiplier == 0:
+                                    print(Fore.RED + f"It has no effect on {defender.name.capitalize()}!")
+                                    print(Style.RESET_ALL)
+                                elif multiplier < 1:
+                                    print(Fore.YELLOW + f"It was not very effective against {defender.name.capitalize()}!")
+                                    print(Style.RESET_ALL)
+                                elif multiplier > 1:
+                                    print(Fore.GREEN + f"It was super effective against {defender.name.capitalize()}!")
+                                    print(Style.RESET_ALL)
                                 print(f"It has done {damage} damage! to {defender.name.capitalize()}")
                                 defender.Take_Damage(damage)
                                 
@@ -151,6 +162,7 @@ def BattleSimulation(p1_team, p2_team):
         elif AllFainted(p2_team):
             print(Fore.GREEN + "Player 1 wins! All of Player 2's Pokémon have fainted!")
             print(Style.RESET_ALL)
+            return
 
         print(f"{defender.name.capitalize()} has {defender.cHp} HP remaining")
 
